@@ -1,0 +1,29 @@
+version: '2.17.3'
+
+services:
+  postgres:
+    container_name: pr-compilation-postgres
+    image: postgres:12
+    environment:
+      POSTGRES_DB: 'pr_compilation'
+      POSTGRES_USER: 'pr_compilation'
+      POSTGRES_PASSWORD: 'compilation'
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+    ports:
+      - '5432:5432'
+
+  pr_compilation_backend:
+    container_name: pr-compilation-backend
+    depends_on:
+      - postgres
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '8084:8084'
+    restart: unless-stopped
+
