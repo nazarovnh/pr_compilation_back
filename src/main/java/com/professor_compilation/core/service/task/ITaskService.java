@@ -4,6 +4,7 @@ import com.professor_compilation.core.entity.task.rdbms.Task;
 import com.professor_compilation.core.model.task.TaskInfo;
 import com.professor_compilation.web.model.task.request.TaskCreateRequest;
 import com.professor_compilation.web.model.task.request.TaskPatchRequest;
+import com.professor_compilation.web.model.task.response.TaskGetResponse;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface ITaskService {
     List<TaskInfo> findAll();
 
     TaskInfo getTaskById(final String taskId);
+    TaskGetResponse getTaskInfoById(final String taskId);
+
     void deleteById(final String taskId);
 
 }

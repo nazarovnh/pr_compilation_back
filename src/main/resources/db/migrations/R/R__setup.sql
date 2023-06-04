@@ -1,20 +1,20 @@
 -- Subject
 
 INSERT INTO subject (subject_id, number_hours, subject_title, subject_description)
-VALUES ('d0a1b24d-0522-4e6b-9bd4-eef459032a03', 108, 'Basics of programming',
-        'Basics of programming on C/C++: This subject focuses specifically on programming in the C and C++ languages. Students will learn about the syntax and structure of these languages, as well as basic programming concepts like variables, data types, loops, and conditional statements. The course may also cover more advanced topics like pointers, memory management, and object-oriented programming. The goal of the subject is to give students a thorough understanding of C and C++ programming so that they can write efficient and effective code in these languages.')
+VALUES ('d0a1b24d-0522-4e6b-9bd4-eef459032a03', 108, 'Основы программирования',
+        'Основы программирования на C/C++: Этот предмет посвящен конкретно программированию на языках C и C++. Студенты узнают о синтаксисе и структуре этих языков, а также об основных понятиях программирования, таких как переменные, типы данных, циклы и условные операторы. Курс также может охватывать более продвинутые темы, такие как указатели, управление памятью и объектно-ориентированное программирование. Цель предмета - дать студентам полное представление о программировании на C и C++, чтобы они могли писать эффективный код на этих языках.')
 ON CONFLICT (subject_id) DO NOTHING;
 
 INSERT INTO subject (subject_id, number_hours, subject_title, subject_description)
-VALUES ('80dfcf1a-3622-4cb2-8529-d57a56d6efcf', 108, 'Algorithmization and programming',
-        'Algorithmization and programming: This subject teaches the basics of programming and algorithmic problem-solving. Students will learn about data types, variables, control structures, and functions, and how to use them to solve problems using algorithms. The course may also cover topics such as recursion, sorting and searching algorithms, and data structures like arrays and linked lists. The goal of the subject is to give students a solid foundation in programming and algorithmic thinking that they can build on in later courses.')
+VALUES ('80dfcf1a-3622-4cb2-8529-d57a56d6efcf', 108, 'Алгоритмизация и программирование',
+        'Алгоритмизация и программирование: Этот предмет преподает основы программирования и алгоритмического решения задач. Студенты узнают о типах данных, переменных, управляющих структурах и функциях, а также о том, как использовать их для решения задач с использованием алгоритмов. Курс также может охватывать такие темы, как рекурсия, алгоритмы сортировки и поиска, а также структуры данных, такие как массивы и связанные списки. Цель предмета - дать студентам прочную основу в программировании и алгоритмическом мышлении, на которую они смогут опираться на последующих курсах.')
 ON CONFLICT (subject_id) DO NOTHING;
 
 -- Topics
 
 INSERT INTO topic (topic_id, subject_id, topic_title, topic_description, topic_order, threshold_score)
-VALUES ('ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'd0a1b24d-0522-4e6b-9bd4-eef459032a03', 'Recursion',
-        'This time let''s see how to work with functions in C. Let''s study recursive algorithms, write a couple of utility functions. Let''s work on passing variables through function arguments. Let''s understand the very essence of cycles.',
+VALUES ('ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'd0a1b24d-0522-4e6b-9bd4-eef459032a03', 'Рекурсия',
+        'На этот раз давайте посмотрим, как работать с функциями на C. Давайте изучим рекурсивные алгоритмы, напишем пару полезных функций. Давайте поработаем над передачей переменных через аргументы функции. Давайте разберемся в самой сути циклов.',
         1, 0),
        ('75248c12-46c2-4787-8f0e-d9298d18d965', 'd0a1b24d-0522-4e6b-9bd4-eef459032a03', 'Arrays and Matrices', 'In the practice of algorithm analysis, one of the common tasks is to work with arrays. Arrays can be of different dimensions, ranging from one-dimensional arrays to multi-dimensional arrays. In this particular practice, the focus is on analyzing algorithms for working with one-dimensional arrays and two-dimensional arrays, also known as matrices.
         A one-dimensional array is a data structure that stores a collection of values of the same type, such as integers or floating-point numbers, in a linear sequence. Accessing elements in a one-dimensional array is done using an index, which is an integer value that represents the position of the element in the array.

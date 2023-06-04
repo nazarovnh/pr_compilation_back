@@ -7,6 +7,7 @@ import com.professor_compilation.core.repository.task.ITaskRepository;
 import com.professor_compilation.core.repository.test.ITestRepository;
 import com.professor_compilation.utils.convert.ConvertUtils;
 import com.professor_compilation.web.model.task.request.TaskCreateRequest;
+import com.professor_compilation.web.model.task.response.TaskGetResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,16 @@ public class TaskService implements ITaskService {
         List<TestCaseRdbms> testCases = testRepository.findAllByTaskId(taskId);
         TaskInfo taskInfo = ConvertUtils.convert(task, TaskInfo.class);
         taskInfo.setTestCaseEntity(testCases);
+        return taskInfo;
+    }
+
+    @Override
+    public TaskGetResponse getTaskInfoById(String taskId) {
+        Task task = taskRepository.findById(taskId).orElseThrow();
+        List<TestCaseRdbms> testCases = testRepository.findAllByTaskId(taskId);
+        TaskGetResponse taskInfo = ConvertUtils.convert(task, TaskGetResponse.class);
+        taskInfo.setExampleInput(testCases.get(0).getInput());
+        taskInfo.setExampleCorrectOutput(testCases.get(0).getCorrectOutput());
         return taskInfo;
     }
 

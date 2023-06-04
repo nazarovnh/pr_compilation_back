@@ -56,7 +56,7 @@ public class DatabaseConfig {
      */
     @Bean
     @Primary
-    public JdbcOperations template(final DataSource dataSource) {
+        public JdbcOperations template(final DataSource dataSource) {
         JdbcTemplate template = new JdbcTemplate(dataSource);
         return template;
     }
