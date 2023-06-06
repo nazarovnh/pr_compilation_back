@@ -33,8 +33,8 @@ ON CONFLICT (topic_id) DO NOTHING;
 -- Task
 
 INSERT INTO task (task_id, topic_id, task_title, task_description, task_order, time_limit, memory_limit, task_price)
-VALUES ('643ed0d2-9630-11ec-b909-0242ac120002', 'ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'Recursive exponentiation', 'Write a program that raises a number to an integer power using recursion.
-        It is forbidden to use loops (for, while, do-while, goto labels). Use recursion instead.', 1, 10000, 256, 10),
+VALUES ('643ed0d2-9630-11ec-b909-0242ac120002', 'ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'Рекурсивное возведение в степень', 'Напишите программу, которая возводит число в целочисленную степень с помощью рекурсии.
+        Запрещено использовать циклы (метки for, while, do-while, goto). Вместо этого используйте рекурсию.', 1, 10000, 256, 10),
        ('84f4336b-6f7d-4e6b-8121-d5a41326bb3d', 'ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'Recursive Fibonacci',
         'It is forbidden to use loops (for, while, do-while, goto labels). Use recursion instead.
         Write a recursive function that calculates the nth character of the Fibonacci sequence. Test the program on different data.',

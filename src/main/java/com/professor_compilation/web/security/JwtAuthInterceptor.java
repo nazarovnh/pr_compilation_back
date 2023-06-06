@@ -9,9 +9,11 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,12 +66,22 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
      */
     private UserCredentials getUserCredentials(final HttpServletRequest request) {
         try {
-            String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-            if (header == null || !header.startsWith("Bearer ")) {
+            Cookie[] cookies = request.getCookies();
+            if (cookies == null) {
                 return null;
             }
+//            String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+//            if (header == null || !header.startsWith("Bearer ")) {
+//                return null;
+//        }
+            String token = Arrays.stream(cookies)
+                    .filter(cookie -> cookie.getName().equals("accessToken"))
+                    .map(Cookie::getValue)
+                    .findFirst()
+                    .orElse(null);
 
-            String token = header.substring(lengthIntroductoryWords);
+
+//            String token = header.substring(lengthIntroductoryWords);
             UserCredentials credentials = jwtService.parseToken(token);
             logger.debug("Found credentials in Authorization header: {}", credentials.getUsername());
             request.setAttribute(userCredentials, credentials);

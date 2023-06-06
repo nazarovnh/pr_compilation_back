@@ -27,8 +27,9 @@ public class TokenRepository implements ITokenRepository<Token, String> {
                     refreshToken, userId
             );
             if (rowsUpdated == 0) {
-                log.warn("No rows were updated for user {}", userId);
-                return Optional.empty();
+                final String tokenId = UUID.randomUUID().toString();
+                jdbcOperations.update("INSERT INTO token (token_id ,user_id, refresh_token) " +
+                        "VALUES(?, ?, ?)", tokenId, userId, refreshToken);
             }
         } catch (DataAccessException e) {
             log.error("Error updating refresh token for user {}", userId, e);
