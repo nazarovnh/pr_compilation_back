@@ -6,6 +6,7 @@ import com.professor_compilation.core.model.task.TaskInfo;
 import com.professor_compilation.core.service.task.ITaskService;
 import com.professor_compilation.web.model.task.request.TaskCreateRequest;
 import com.professor_compilation.web.model.task.request.TaskPatchRequest;
+import com.professor_compilation.web.model.task.response.TaskGetResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,11 @@ public class TaskController {
     @GetMapping("/")
     public ResponseEntity<List<TaskInfo>> getAllTasks() {
         return new ResponseEntity<>(taskService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{taskId}")
+    public ResponseEntity<TaskGetResponse> getTask(final @PathVariable String taskId) {
+        return new ResponseEntity<>(taskService.getTaskInfoById(taskId), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteById(final @PathVariable String id) {

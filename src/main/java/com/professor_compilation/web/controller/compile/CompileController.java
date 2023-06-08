@@ -3,6 +3,7 @@ package com.professor_compilation.web.controller.compile;
 import com.professor_compilation.core.annotations.AuthRoleRequired;
 import com.professor_compilation.core.model.exception.environment.EnvironmentException;
 import com.professor_compilation.core.model.exception.process.ProcessException;
+import com.professor_compilation.core.model.language.Language;
 import com.professor_compilation.core.service.compile.ICompileService;
 import com.professor_compilation.web.model.compile.CodeRequest;
 import com.professor_compilation.web.model.compile.CodeResponse;
@@ -26,15 +27,16 @@ public class CompileController {
     private ICompileService compileService;
 
 
-    @PostMapping(value = "topic/{topicId}/task/{taskId}/execute"
+    @PostMapping(value = "topic/{topicId}/task/{taskId}/execute/{language}"
     )
     @AuthRoleRequired("USER")
     public ResponseEntity<CodeResponse> executeTask(@PathVariable final String topicId,
                                                     @PathVariable final String taskId,
                                                     @RequestPart("sourceCode") MultipartFile sourceCode,
-                                                    @RequestPart CodeRequest codeRequest,
+                     @PathVariable final String language,
                                                     final UserCredentials userCredentials
     ) throws ProcessException, EnvironmentException {
-        return ResponseEntity.ok(compileService.execute(topicId, taskId, codeRequest, sourceCode, userCredentials));
+        return ResponseEntity.ok(compileService.execute(topicId, taskId, new CodeRequest(Language.valueOf(language)),
+                sourceCode, userCredentials));
     }
 }
