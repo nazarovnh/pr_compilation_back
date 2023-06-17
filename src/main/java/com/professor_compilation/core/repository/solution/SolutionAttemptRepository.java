@@ -53,4 +53,9 @@ public class SolutionAttemptRepository implements ISolutionAttemptRepository<Sol
             return Optional.empty();
         }
     }
+
+    @Override
+    public String getAttemptStatus(String taskId, String userId) {
+        return null;
+    }
 }

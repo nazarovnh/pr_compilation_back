@@ -33,6 +33,11 @@ public class TaskJsonbRepository implements ITaskRepository<TaskJsonb, String> {
         }
     }
 
+    @Override
+    public Collection<String> findByTopicId(String topicId) {
+        return null;
+    }
+
 
     @Override
     public List<TaskJsonb> findAll() {

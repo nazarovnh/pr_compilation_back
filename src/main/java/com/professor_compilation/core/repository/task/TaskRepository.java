@@ -7,9 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static com.professor_compilation.constants.Constants.*;
 import static com.professor_compilation.utils.parameter.ParameterUtils.getParameters;
@@ -55,6 +53,12 @@ public class TaskRepository implements ITaskRepository<Task, String> {
                 EmptyResultDataAccessException e) {
             throw new NoSuchElementFoundException(getMessageNoSuchEntity(TASK, taskId));
         }
+    }
+
+    @Override
+    public Collection<String> findByTopicId(String topicId) {
+        String sql = String.format("SELECT * FROM task_id WHERE topic_id = :%s", stampTopicId);
+        return jdbcOperations.query(sql, new MapSqlParameterSource(stampTopicId, topicId), getEntityRowMapper(String.class));
     }
 
     @Override
