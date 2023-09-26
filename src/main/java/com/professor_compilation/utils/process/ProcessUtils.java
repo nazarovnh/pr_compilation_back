@@ -38,7 +38,7 @@ public class ProcessUtils {
 
 
             // Wait until the process terminated or the specified waiting time elapses.
-            process.waitFor(timeout * 10, TimeUnit.MILLISECONDS);
+            process.waitFor(timeout, TimeUnit.MILLISECONDS);
 
             Long endTime = System.currentTimeMillis();
 

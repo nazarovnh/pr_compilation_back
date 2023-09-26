@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface ITaskRepository<T, ID extends Serializable> {
 
     Optional<T> findById(final ID taskId);
+    Collection<T> findByTopicId(final ID topicId);
 
     Collection<T> findAll();
 

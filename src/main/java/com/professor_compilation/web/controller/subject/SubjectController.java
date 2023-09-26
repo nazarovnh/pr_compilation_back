@@ -3,10 +3,12 @@ package com.professor_compilation.web.controller.subject;
 import com.professor_compilation.core.annotations.AuthRoleRequired;
 import com.professor_compilation.core.entity.subject.rdbms.Subject;
 import com.professor_compilation.core.service.subject.ISubjectService;
+import com.professor_compilation.web.model.security.UserCredentials;
 import com.professor_compilation.web.model.subject.request.SubjectCreateRequest;
 import com.professor_compilation.web.model.subject.request.SubjectJoinRequest;
 import com.professor_compilation.web.model.subject.request.SubjectPatchRequest;
 import com.professor_compilation.web.model.subject.response.SubjectCreateResponse;
+import com.professor_compilation.web.model.subject.response.SubjectGetResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,11 @@ public class SubjectController {
     @GetMapping("/{id}")
     public ResponseEntity<Subject> getSubjectById(final @PathVariable String id) {
         return new ResponseEntity(subjectService.getSubjectById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/topics")
+    public ResponseEntity<SubjectGetResponse> getSubjectOverviewById(final @PathVariable String id, final UserCredentials userCredentials) {
+        return new ResponseEntity(subjectService.getSubjectTopicsById(id, userCredentials.getUserId()), HttpStatus.OK);
     }
 
     @GetMapping("/")

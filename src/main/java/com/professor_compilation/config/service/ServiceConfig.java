@@ -1,7 +1,9 @@
 package com.professor_compilation.config.service;
 
 import com.professor_compilation.core.entity.group.StudyGroupRdbms;
+import com.professor_compilation.core.entity.solution.rdbms.SolutionAttemptRdbms;
 import com.professor_compilation.core.entity.subject.rdbms.Subject;
+import com.professor_compilation.core.entity.task.rdbms.Task;
 import com.professor_compilation.core.entity.topic.access.rdbms.TopicAccessRdbms;
 import com.professor_compilation.core.entity.topic.rdbms.Topic;
 import com.professor_compilation.core.entity.user.User;
@@ -37,6 +39,7 @@ import com.professor_compilation.core.service.topic.access.ITopicAccessService;
 import com.professor_compilation.core.service.topic.access.TopicAccessService;
 import com.professor_compilation.core.service.validator.IValidatorService;
 import com.professor_compilation.core.service.validator.ValidatorService;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -122,12 +125,18 @@ public class ServiceConfig {
 
     @Bean
     public ISubjectService subjectService(final ISubjectRepository<Subject, String> subjectRepository, final ITopicAccessRepository<TopicAccessRdbms, String> topicAccessRepository,
-                                          final IStudyGroupRepository<StudyGroupRdbms, String> studyGroupRepository, final ITopicRepository<Topic, String> topicRepository) {
-        return new SubjectService(subjectRepository, topicAccessRepository, studyGroupRepository, topicRepository);
+                                          final IStudyGroupRepository<StudyGroupRdbms, String> studyGroupRepository,
+                                          final ITopicRepository<Topic, String> topicRepository,
+                                          final ITaskRepository<Task, String> taskRepository,
+                                          final ISolutionAttemptRepository<SolutionAttemptRdbms, String> solutionAttemptRepository,
+                                          final ModelMapper modelMapper) {
+        return new SubjectService(subjectRepository, topicAccessRepository, studyGroupRepository,
+                topicRepository, taskRepository, solutionAttemptRepository, modelMapper);
     }
 
     @Bean
-    public ITopicService topicService(final ITopicRepository<Topic, String> topicRepository) {
-        return new TopicService(topicRepository);
+    public ITopicService topicService(final ITopicRepository<Topic, String> topicRepository, final ITaskRepository<Task, String> taskRepository,
+                                      final ModelMapper modelMapper) {
+        return new TopicService(topicRepository, taskRepository, modelMapper);
     }
 }
