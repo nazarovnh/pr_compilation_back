@@ -55,7 +55,19 @@ public class SolutionAttemptRepository implements ISolutionAttemptRepository<Sol
     }
 
     @Override
-    public String getAttemptStatus(String taskId, String userId) {
-        return null;
+    public Boolean isAttemptStatusSuccess(String taskId, String userId) {
+        try {
+            String sql = String.format("SELECT DISTINCT attempt_status FROM solution_attempt WHERE user_id = :%s AND " +
+                    "task_id = :%s AND attempt_status = :%s", stampUserId, stampTaskId, stampAttemptStatus);
+            MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue(stampUserId, userId);
+            params.addValue(stampTaskId, taskId);
+            params.addValue(stampAttemptStatus, "SUCCESS");
+            String result = jdbcOperations.queryForObject(sql, params, String.class);
+            return true;
+        } catch (
+                EmptyResultDataAccessException e) {
+            return false;
+        }
     }
 }

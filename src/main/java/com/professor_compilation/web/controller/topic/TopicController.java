@@ -4,6 +4,7 @@ import com.professor_compilation.core.entity.topic.rdbms.Topic;
 import com.professor_compilation.core.service.topic.ITopicService;
 import com.professor_compilation.web.model.topic.request.TopicCreateRequest;
 import com.professor_compilation.web.model.topic.request.TopicPatchRequest;
+import com.professor_compilation.web.model.topic.response.TopicAndTasksResponse;
 import com.professor_compilation.web.model.topic.response.TopicCreateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,11 @@ public class TopicController {
     @GetMapping("/{id}")
     public ResponseEntity<Topic> getTopicById(@PathVariable final String id) {
         return new ResponseEntity(topicService.getTopicById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/tasks")
+    public ResponseEntity<TopicAndTasksResponse> getTopicByIdWithTask(@PathVariable final String id) {
+        return new ResponseEntity(topicService.getTopicByIdWithTask(id), HttpStatus.OK);
     }
 
     @GetMapping("/")

@@ -22,6 +22,7 @@ import com.professor_compilation.web.model.topic.response.TopicSubjectGetRespons
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -60,11 +61,11 @@ public class SubjectService implements ISubjectService {
         for (Topic topic :
                 topics) {
             Integer completelyTasks = 0;
-            List<String> taskIds = new ArrayList<>(taskRepository.findByTopicId(topic.getTopicId()));
+            List<String> taskIds = new ArrayList<>(taskRepository.findByTopicId(topic.getTopicId()).stream().map(Task::getTaskId)
+                    .collect(Collectors.toList()));
             for (String taskId :
                     taskIds) {
-                String attemptStatus = solutionAttemptRepository.getAttemptStatus(taskId, userId);
-                if (Objects.equals(attemptStatus, "SUCCESS")) {
+                if (solutionAttemptRepository.isAttemptStatusSuccess(taskId, userId)) {
                     completelyTasks += 1;
                 }
             }

@@ -56,9 +56,9 @@ public class TaskRepository implements ITaskRepository<Task, String> {
     }
 
     @Override
-    public Collection<String> findByTopicId(String topicId) {
-        String sql = String.format("SELECT * FROM task_id WHERE topic_id = :%s", stampTopicId);
-        return jdbcOperations.query(sql, new MapSqlParameterSource(stampTopicId, topicId), getEntityRowMapper(String.class));
+    public Collection<Task> findByTopicId(String topicId) {
+        String sql = String.format("SELECT * FROM task WHERE topic_id = :%s", stampTopicId);
+        return jdbcOperations.query(sql, new MapSqlParameterSource(stampTopicId, topicId), getEntityRowMapper(Task.class));
     }
 
     @Override

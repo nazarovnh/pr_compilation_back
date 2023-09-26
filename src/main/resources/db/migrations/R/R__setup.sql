@@ -16,7 +16,7 @@ INSERT INTO topic (topic_id, subject_id, topic_title, topic_description, topic_o
 VALUES ('ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'd0a1b24d-0522-4e6b-9bd4-eef459032a03', 'Рекурсия',
         'На этот раз давайте посмотрим, как работать с функциями на C. Давайте изучим рекурсивные алгоритмы, напишем пару полезных функций. Давайте поработаем над передачей переменных через аргументы функции. Давайте разберемся в самой сути циклов.',
         1, 0),
-       ('75248c12-46c2-4787-8f0e-d9298d18d965', 'd0a1b24d-0522-4e6b-9bd4-eef459032a03', 'Arrays and Matrices', 'In the practice of algorithm analysis, one of the common tasks is to work with arrays. Arrays can be of different dimensions, ranging from one-dimensional arrays to multi-dimensional arrays. In this particular practice, the focus is on analyzing algorithms for working with one-dimensional arrays and two-dimensional arrays, also known as matrices.
+       ('75248c12-46c2-4787-8f0e-d9298d18d965', 'd0a1b24d-0522-4e6b-9bd4-eef459032a03', 'Массивы и матрицы', 'In the practice of algorithm analysis, one of the common tasks is to work with arrays. Arrays can be of different dimensions, ranging from one-dimensional arrays to multi-dimensional arrays. In this particular practice, the focus is on analyzing algorithms for working with one-dimensional arrays and two-dimensional arrays, also known as matrices.
         A one-dimensional array is a data structure that stores a collection of values of the same type, such as integers or floating-point numbers, in a linear sequence. Accessing elements in a one-dimensional array is done using an index, which is an integer value that represents the position of the element in the array.
         A two-dimensional array, on the other hand, is an array that is arranged in rows and columns. It can be visualized as a table, where each cell in the table stores a value of the same type. Accessing elements in a two-dimensional array is done using two indices, one for the row and one for the column.
         In this practice, algorithms for performing various operations on one-dimensional and two-dimensional arrays are analyzed, such as searching for an element, sorting the array, computing the sum or average of the elements, and so on. By analyzing these algorithms, students can gain a deeper understanding of the properties of different algorithms and how to choose the most appropriate algorithm for a given problem.',
@@ -35,7 +35,7 @@ ON CONFLICT (topic_id) DO NOTHING;
 INSERT INTO task (task_id, topic_id, task_title, task_description, task_order, time_limit, memory_limit, task_price)
 VALUES ('643ed0d2-9630-11ec-b909-0242ac120002', 'ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'Рекурсивное возведение в степень', 'Напишите программу, которая возводит число в целочисленную степень с помощью рекурсии.
         Запрещено использовать циклы (метки for, while, do-while, goto). Вместо этого используйте рекурсию.', 1, 10000, 256, 10),
-       ('84f4336b-6f7d-4e6b-8121-d5a41326bb3d', 'ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'Recursive Fibonacci',
+       ('84f4336b-6f7d-4e6b-8121-d5a41326bb3d', 'ed6bd2d6-941c-4497-922d-ce68fadd98f5', 'Рекурсивный метод Фибоначчи',
         'It is forbidden to use loops (for, while, do-while, goto labels). Use recursion instead.
         Write a recursive function that calculates the nth character of the Fibonacci sequence. Test the program on different data.',
         2, 10000, 256, 10),

@@ -135,7 +135,8 @@ public class ServiceConfig {
     }
 
     @Bean
-    public ITopicService topicService(final ITopicRepository<Topic, String> topicRepository) {
-        return new TopicService(topicRepository);
+    public ITopicService topicService(final ITopicRepository<Topic, String> topicRepository, final ITaskRepository<Task, String> taskRepository,
+                                      final ModelMapper modelMapper) {
+        return new TopicService(topicRepository, taskRepository, modelMapper);
     }
 }

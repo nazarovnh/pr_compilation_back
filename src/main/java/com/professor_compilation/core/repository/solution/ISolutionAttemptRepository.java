@@ -8,5 +8,5 @@ public interface ISolutionAttemptRepository<T, ID extends Serializable> {
     Optional<Integer> findMaxScoreForTaskByUserId(final String userId, final String taskId);
 
 
-    String getAttemptStatus(ID taskId, ID userId);
+    Boolean isAttemptStatusSuccess(ID taskId, ID userId);
 }

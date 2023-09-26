@@ -3,6 +3,7 @@ package com.professor_compilation.core.repository.task;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.professor_compilation.core.entity.task.jsonb.TaskJsonb;
+import com.professor_compilation.core.entity.task.rdbms.Task;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 
@@ -34,7 +35,7 @@ public class TaskJsonbRepository implements ITaskRepository<TaskJsonb, String> {
     }
 
     @Override
-    public Collection<String> findByTopicId(String topicId) {
+    public Collection<TaskJsonb> findByTopicId(String topicId) {
         return null;
     }
 

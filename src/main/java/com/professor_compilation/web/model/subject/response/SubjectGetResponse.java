@@ -1,6 +1,7 @@
 package com.professor_compilation.web.model.subject.response;
 
 import com.professor_compilation.web.model.topic.response.TopicSubjectGetResponse;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.lang.reflect.Array;
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
 public class SubjectGetResponse {

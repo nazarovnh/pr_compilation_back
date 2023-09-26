@@ -1,70 +1,102 @@
 package com.professor_compilation.service.subject;
 
 import com.professor_compilation.core.entity.group.StudyGroupRdbms;
+import com.professor_compilation.core.entity.solution.rdbms.SolutionAttemptRdbms;
 import com.professor_compilation.core.entity.subject.rdbms.Subject;
+import com.professor_compilation.core.entity.task.rdbms.Task;
 import com.professor_compilation.core.entity.topic.access.rdbms.TopicAccessRdbms;
 import com.professor_compilation.core.entity.topic.rdbms.Topic;
 import com.professor_compilation.core.repository.group.IStudyGroupRepository;
+import com.professor_compilation.core.repository.solution.ISolutionAttemptRepository;
 import com.professor_compilation.core.repository.subject.ISubjectRepository;
+import com.professor_compilation.core.repository.task.ITaskRepository;
 import com.professor_compilation.core.repository.topic.ITopicRepository;
 import com.professor_compilation.core.repository.topic.access.ITopicAccessRepository;
 import com.professor_compilation.core.service.subject.ISubjectService;
 import com.professor_compilation.core.service.subject.SubjectService;
+import com.professor_compilation.web.model.subject.response.SubjectGetResponse;
+import com.professor_compilation.web.model.topic.response.TopicSubjectGetResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.*;
 import org.modelmapper.ModelMapper;
 
-import static org.mockito.Mockito.mock;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class SubjectServiceTest {
+    @Mock
     private ISubjectRepository<Subject, String> subjectRepository;
+    @Mock
     private ITopicAccessRepository<TopicAccessRdbms, String> topicAccessRepository;
+    @Mock
     private IStudyGroupRepository<StudyGroupRdbms, String> studyGroupRepository;
+    @Mock
     private ITopicRepository<Topic, String> topicRepository;
-    private ModelMapper modelMapper;
-    private ISubjectService subjectService;
+    @Mock
+    private ISolutionAttemptRepository<SolutionAttemptRdbms, String> solutionAttemptRepository;
+    @Mock
+    private ITaskRepository<Task, String> taskRepository;
+
+    ModelMapper modelMapper = new ModelMapper();
+
+    private SubjectService subjectService;
 
     @BeforeEach
     public void setUp() {
-        subjectRepository = mock(ISubjectRepository.class);
-        topicAccessRepository = mock(ITopicAccessRepository.class);
-        studyGroupRepository = mock(IStudyGroupRepository.class);
-        topicRepository = mock(ITopicRepository.class);
-        modelMapper = mock(ModelMapper.class);
-        subjectService = new SubjectService(subjectRepository, topicAccessRepository, studyGroupRepository,
-                topicRepository, modelMapper);
+        MockitoAnnotations.openMocks(this);
+        subjectService = new SubjectService(
+                subjectRepository,
+                topicAccessRepository,
+                studyGroupRepository,
+                topicRepository,
+                taskRepository,
+                solutionAttemptRepository,
+                modelMapper
+        );
     }
 
     @Test
     public void getSubjectTopicsById_WithCorrectSubjectId_ShouldReturnSubjectGetResponse() {
-//        String roomId = UUID.randomUUID().toString();
-//        String playerId = UUID.randomUUID().toString();
-//        UserCredentials mockUserCredentials = mock(UserCredentials.class);
-//        List<String> listIdQuestions = mock(List.class);
-//        List<String> listIdPlayers = mock(List.class);
-//        String questionId = UUID.randomUUID().toString();
-//        QuestionLocation mockQuestionLocation = mock(QuestionLocation.class);
-//
-//        when(mockUserCredentials.getUserId()).thenReturn(playerId);
-//        when(mockRoomRepository.getOwnerIdByRoomId(roomId)).thenReturn(playerId);
-//        when(mockRoomRepository.getIdPlayers(roomId)).thenReturn(listIdPlayers);
-//        when(listIdPlayers.contains(playerId)).thenReturn(true);
-//        when(mockQuestionRepository.getQuestionsIdStartGame()).thenReturn(listIdQuestions);
-//        doNothing().when(mockGameRepository).createGame(roomId, listIdQuestions, listIdPlayers);
-//        when(mockGameRepository.getCurrentQuestionId(roomId)).thenReturn(questionId);
-//        when(mockQuestionLocation.getQuestionId()).thenReturn(questionId);
-//
-//        QuestionLocation result = gameService.startGame(roomId, mockUserCredentials);
-//
-//
-//        verify(mockUserCredentials, times(2)).getUserId();
-//        verify(mockRoomRepository, times(2)).getIdPlayers(roomId);
-//        verify(listIdPlayers, times(1)).contains(playerId);
-//        verify(mockQuestionRepository, times(1)).getQuestionsIdStartGame();
-//        verify(mockGameRepository, times(1)).createGame(roomId, listIdQuestions, listIdPlayers);
-//        verify(mockGameRepository, times(1)).getCurrentQuestionId(roomId);
-//
-//        assertEquals(mockQuestionLocation.getQuestionId(), result.getQuestionId());
+        String subjectId = "testSubjectId";
+        String userId = "testUserId";
+        Subject subjectInfo = new Subject(subjectId, 50, "Test Subject", "Description of test subject");
+
+
+        List<Topic> topics = Arrays.asList(
+                new Topic("topicId1", subjectId, "Topic 1", "Description 1", 1, 80),
+                new Topic("topicId2", subjectId, "Topic 2", "Description 2", 2, 75)
+        );
+
+        when(subjectRepository.findById(subjectId)).thenReturn(Optional.of(subjectInfo));
+        when(topicRepository.getTopicsBySubjectId(subjectId)).thenReturn(topics);
+
+
+        when(taskRepository.findByTopicId(anyString())).thenReturn(Arrays.asList(
+                new Task(UUID.randomUUID().toString(),
+                        UUID.randomUUID().toString(),
+                        "taskTitle",
+                        "taskDescription",
+                        1,
+                        1,
+                        1,
+                        1
+                )));
+        when(solutionAttemptRepository.isAttemptStatusSuccess(anyString(), anyString())).thenReturn(true);
+
+        SubjectGetResponse response = subjectService.getSubjectTopicsById(subjectId, userId);
+
+        assertEquals(subjectInfo.getSubjectTitle(), response.getSubjectTitle());
+        assertEquals(topics.size(), response.getTopics().size());
+
+        verify(subjectRepository, times(1)).findById(subjectId);
+        verify(topicRepository, times(1)).getTopicsBySubjectId(subjectId);
+        verify(taskRepository, times(topics.size())).findByTopicId(anyString());
+        verify(solutionAttemptRepository, times(topics.size())).isAttemptStatusSuccess(anyString(), anyString());
     }
 
 

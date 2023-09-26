@@ -8,22 +8,23 @@ services:
       POSTGRES_DB: 'pr_compilation'
       POSTGRES_USER: 'pr_compilation'
       POSTGRES_PASSWORD: 'compilation'
-#    healthcheck:
-#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5
+    volumes:
+      - ./.docker/pr_compilation_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d pr_compilation -U pr_compilation" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     ports:
       - '5432:5432'
-
-  pr_compilation_backend:
-    container_name: pr-compilation-backend
-    depends_on:
-      - postgres
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - '8084:8084'
-    restart: unless-stopped
-
+#
+#  pr_compilation_backend:
+#    container_name: pr-compilation-backend
+#    depends_on:
+#      - postgres
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    ports:
+#      - '8080:8080'
+#    restart: unless-stopped
