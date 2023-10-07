@@ -60,6 +60,6 @@ public class CompileControllerTest {
                 userCredentials);
 
         assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

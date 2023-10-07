@@ -38,7 +38,7 @@ public class ExecutionFactory {
      */
     public Execution getExecution(final MultipartFile sourceCode, final TaskInfo taskInfo, final UserCredentials userCredentials) {
         Execution execution = Optional.ofNullable(executionsMap.get(taskInfo.getLanguage())).orElseThrow(IllegalArgumentException::new);
-        execution.build(sourceCode, userCredentials.getUserId(), taskInfo.getTopicId(), taskInfo.getTaskId(), taskInfo.getTimeLimit(), taskInfo.getMemoryLimit(), taskInfo.getTestCaseEntity());
+            execution.build(sourceCode, userCredentials.getUserId(), taskInfo.getTopicId(), taskInfo.getTaskId(), taskInfo.getTimeLimit(), taskInfo.getMemoryLimit(), taskInfo.getTestCaseEntity());
         return execution;
     }
 }
