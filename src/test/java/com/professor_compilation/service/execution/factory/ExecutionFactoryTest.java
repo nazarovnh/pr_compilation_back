@@ -1,4 +1,4 @@
-package com.professor_compilation.web.controller.execution.factory;
+package com.professor_compilation.service.execution.factory;
 
 import com.professor_compilation.core.entity.test.rdbms.TestCaseRdbms;
 import com.professor_compilation.core.model.execution.Execution;

@@ -60,8 +60,8 @@ public class SubjectServiceTest {
         );
     }
 
-    @Test
-    public void getSubjectTopicsById_WithCorrectSubjectId_ShouldReturnSubjectGetResponse() {
+        @Test
+        public void getSubjectTopicsById_WithCorrectSubjectId_ShouldReturnSubjectGetResponse() {
         String subjectId = "testSubjectId";
         String userId = "testUserId";
         Subject subjectInfo = new Subject(subjectId, 50, "Test Subject", "Description of test subject");
